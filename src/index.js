@@ -1,17 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import pokemon from './pokemon';
 
+const Pokecard = ({name, image, type, exp}) => {
+  return (
+    <>
+      <p>{name}</p>
+      <img src={image} width={200}/>
+      <p>type: {type}</p>
+      <p>EXP : {exp}</p>
+    </>
+  )
+}
+
+const Pokedex = ({pokemon}) => {
+  return (
+    <>
+      {pokemon.map(p => (
+            <Pokecard 
+              key={p.id} 
+              name={p.name} 
+              image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`} 
+              type={p.type} 
+              exp={p.base_experience}
+            />))}
+    </>
+  )
+}
+
+const App = () => {
+  return (
+    <div>
+      <Pokedex pokemon={pokemon}/>
+    </div>
+  )
+}
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
